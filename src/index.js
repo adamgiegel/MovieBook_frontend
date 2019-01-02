@@ -17,23 +17,27 @@ function getAllMovies(){
 
 
 
+
 function showAllMovies(movies){
     movies.forEach(function(movie){
     movieContainer.innerHTML += `
                                 <div>
-                                <h1 data-name="name">${movie.title}</h1>
+                                <h1 data-id=${movie.id} data-name=${movie.title}>${movie.title}</h1>
                                 </div>`
-                                })
-
+                            })
 }
 
-movieContainer.addEventListener("click", function(event){
-  if(event.target.dataset.name === "name"){
-    event.target.find(function(movie){
-      
-    })
-  }
-})
+// movieContainer.addEventListener("click", function(event){
+//   if(event.target.dataset.name === "name"){
+//     const foundMovie = allMovies.find(function(movie){
+//       console.log(event.target.dataset.name)
+//       movie.id === parseInt(event.target.dataset.id)
+//       console.log(foundMovie)
+//     })
+//
+//   }
+//     })
+
 
 
 getAllMovies()
