@@ -1,0 +1,40 @@
+body {
+   display: grid;
+   grid-template-columns: 3fr 8fr
+}
+
+#overlay {
+    visibility: hidden;
+    position: fixed;
+    top: 10%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+    z-index: 1000;
+    /* background-color: rgb(245, 245, 250); */
+    border-radius: 10px;
+ }
+
+ .is-blurred * div:not(#overlay) {
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
+ }
+
+ #overlay-content {
+     visibility: hidden;
+     position: fixed;
+     top: 10%;
+     left: 25%;
+     width: 50%;
+     height: 50%;
+     text-align: center;
+     z-index: 1000;
+     /* background-color: rgb(245, 245, 250); */
+     border-radius: 10px;
+  }
+
+  .is-blurred * div:not(#overlay-content) {
+     filter: blur(2px);
+     -webkit-filter: blur(2px);
+  }

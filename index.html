@@ -1,12 +1,123 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>AlwaysNote</title>
-  </head>
-  <body>
-    <ul id='notes-list'></ul>
-    <div id='movie-container'></div>
-<script src="src/index.js" charset="utf-8"></script>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+
+
+
+    <div id="list-panel">
+    <!-- search bar form -->
+    <form id="movie-search-form" class="" action="" method="" >
+        <label for="search">Search: </label>
+        <input id="movie-search-input" type="text" name="" placeholder = "SEARCH FOR MOVIE ">
+        <br>
+        <button class="create" data-action="create" id="create-movie" type="button" name="button">Create New Movie</button>
+        <br>
+        <label for="hide">Hide Movies</label>
+        <input id="hide" type="checkbox">
+     </form>
+         <br>
+         <br>
+        <ul id="list">
+
+        </ul>
+    </div>
+    <div id="show-panel">
+
+            <br>
+            <br>
+          <div id="show-list"></div>
+          <br>
+          <br>
+          <div id="comment-list">
+            STRING or something
+          </div>
+        </div>
+        <div id="overlay-content">
+
+        <form class="formMain" id="movie-form" action="index.html" method="post"  >
+            <br>
+            <label for="title">Title: </label>
+            <input id="movie-name-input" required type="text" name="name" value="">
+            <br>
+            <label for="trailer">Image: </label>
+            <input id="movie-trailer-input" type="text" name="trailer" value="">
+            <br>
+            <label for="info">Description: </label>
+            <input id="movie-info-input" type="text" name="info" value="">
+            <br>
+            <label for="starring">Starring: </label>
+            <input id="movie-starring-input" type="text" name="starring" value="">
+            <br>
+            <label for="rating">Rating: </label>
+            <input id="movie-rating-input" type="integer" name="rating" value="">
+            <br>
+            <tr>
+                <td>Genre:</td>
+                <td>
+                    <select id="genre">
+                    <option value="1">Action</option>
+                    <option value="2">Documentary</option>
+                    <option value="3">Fantasy</option>
+                    <option value="4"selected>Drama</option>
+                    <option value="5">Comedy</option>
+                    <option value="6">Mystery & Suspense</option>
+                    <option value="7">Horror</option>
+                    </select>
+                </td>
+                </tr>
+                <br>
+                <button id="submit-movie" type="submit" name="button">Submit Entry</button>
+                <button type="reset" name="button">Reset</button>
+                <!-- <button class="update" id="update-book" data-action="update">Update</button>
+                <br> -->
+            </form>
+            </div>
+        <div id="overlay">
+
+            <!-- <span class="closebtn" onclick="closeForm()" title ="Close Overlay"> &#215 </span>
+            <div class="wrap"> -->
+        <form class="form" id="edit-form" action="index.html" method="post"  >
+            <br>
+            <label for="title">Title: </label>
+            <input id="edit-name-input" required type="text" name="name" value="">
+            <br>
+            <label for="image">Image: </label>
+            <input id="edit-img-input" type="text" name="image" value="">
+            <br>
+            <label for="description">Description: </label>
+            <input id="edit-description-input" type="text" name="description" value="">
+            <br>
+            <!-- <tr>
+                <td>Genre:</td>
+                <td>
+                    <select name="Genre">
+                    <option value="1">Mystery</option>
+                    <option value="2">Sci-Fi</option>
+                    <option value="3" selected>Thriller</option>
+                    <option value="4">Comedy</option>
+                    <option value="5">Suspense</option>
+                    </select>
+                </td>
+                </tr> -->
+                <br>
+                <button id="submit-movie" type="submit" name="button">Update Entry</button>
+                <button type="reset" name="button">Reset</button>
+                <!-- <button class="update" id="update-book" data-action="update">Update</button>
+                <br> -->
+            </form>
+        </div>
+        </div>
+
+
+
+    <script type="text/javascript" src="src/index.js"></script>
+    <script type="text/javascript" src="src/movie.js"></script>
+    <!-- <script type="text/javascript" src="src/user.js"></script> -->
+    <!-- <script type="text/javascript" src="src/adapter.js"></script> -->
+</body>
 </html>
