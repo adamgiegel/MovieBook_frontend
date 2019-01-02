@@ -1,25 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log('LOADED');
 
-let allMovies = []
+
 const showList = document.getElementById('show-list')
 const movieList = document.getElementById('list')
 const showPanel = document.getElementById('show-panel')
+const commentList = document.getElementById('comment-list')
 const searchBar = document.getElementById('movie-search-input')
 const hideBox = document.querySelector('#hide')
 const createButton = document.getElementById('create-button')
 const movieForm = document.getElementById("movie-form")
 const listPanel = document.getElementById('list-panel')
 const selector = document.getElementById('genre')
+const editTitle = document.getElementById('edit-name-input')
+const editTrailer = document.getElementById('edit-trailer-input')
+const editInfo = document.getElementById('edit-info-input')
+const editStarring = document.getElementById('edit-starring-input')
+const editRating = document.getElementById('edit-rating-input')
+const editForm = document.getElementById("edit-form")
+// const editGenre = document.getElementById('genre')
+// let index = selector.selectedIndex
+// let selectedValue = selector.options[index].value
 // movieForm.style.display = "none"
 
 function getAllMovies(){
   fetch('http://localhost:3000/api/v1/movies')
   .then(response => response.json())
   .then((data) => {
-    console.table(data)
+    console.log(data)
+    console.log(data[2].comments[0].comment)
     return data.forEach(function(movie){
       const newMovie = new Movie(movie)
+      console.log(newMovie)
       movieList.innerHTML += newMovie.renderSingleMovie()
     })
     // allMovies = data
@@ -58,7 +70,28 @@ function getAllMovies(){
 movieList.addEventListener('click', function(event){
   let clickMovieId = parseInt(event.target.dataset.id)
   let foundMovie = Movie.findMovie(clickMovieId)
+  console.log(foundMovie)
+  const user = foundMovie.comments.forEach(function(user){
+    // console.log(user.user_id)
+    if(user.user_id === user.id){
+      console.log(user.id)
+    }
+  })
+  commentList.innerHTML = ""
+  foundMovie.comments.forEach(function(comment){
+    commentList.innerHTML += `<div>
+      <li>"${comment.comment}"</li>
+    </div>`
+  })
+
+  // foundMovie.user.forEach(function(user){
+  //   commentList.innerHTML += `<div>
+  //     <li>"${user.username}"</li>
+  //   </div>`
+  // })
   showList.innerHTML = foundMovie.renderMovieDetails()
+  // let foundComment = Comment.findComment(clickMovieId)
+  // console.log(foundComment)
 })
 
 searchBar.addEventListener('input', function(event){
@@ -95,12 +128,26 @@ showPanel.addEventListener("click", function(event){
     fetch(`http://localhost:3000/api/v1/movies/${clickMovieId}`, {
       method: "DELETE"
     })
+    refresh()
+} else if(event.target.className === "edit" || event.target.dataset.action === "edit"){
+  document.body.className = "is-blurred"
+  document.querySelector("#overlay").style.visibility = "visible"
+
+  let clickMovieId = parseInt(event.target.dataset.id)
+  const foundMovie = Movie.findMovie(clickMovieId)
+  editTitle.value = foundMovie.title
+  editInfo.value = foundMovie.info
+  editStarring.value = foundMovie.starring
+  editRating.value = foundMovie.rating
+  editTrailer.value = foundMovie.trailer
+  editForm.dataset.id = foundMovie.id
 }
 })
 
 movieForm.addEventListener("submit", function(event){
   event.preventDefault()
   addMovie()
+  refresh()
 })
 
 function addMovie(){
@@ -110,8 +157,6 @@ function addMovie(){
   const newStarring = document.getElementById('movie-starring-input')
   const newRating = document.getElementById('movie-rating-input')
   const newGenre = document.getElementById('genre')
-  let index = selector.selectedIndex
-  let selectedValue = selector.options[index].value
 
   fetch('http://localhost:3000/api/v1/movies', {
     method: "POST",
@@ -125,7 +170,8 @@ function addMovie(){
       info: newInfo.value,
       starring: newStarring.value,
       rating: newRating.value,
-      genre: selectedValue
+      genre: newGenre.value,
+      likes: 0
     })
     })
     .then(response => response.json())
@@ -136,8 +182,35 @@ function addMovie(){
       movieForm.reset()
     })
 }
-// function refresh(){
-//   return document.location.reload(true)
-// }
+
+
+function displayComments(){
+  fetch("http://localhost:3000/api/v1/comments")
+  .then(function(response){
+    console.log(response)
+    return response.json()
+  })
+  .then((dataComment) => {
+    console.table(dataComment)
+    dataComment.forEach(function(comment){
+      const newComment = new Comment(movie)
+      commentList.innerHTML += `<div>
+                                <h1>${comment.movie.title}</h1>
+                                <h1>${comment.user.username}</h1>
+                                <h1>${comment.comment}</h1>
+                                </div>`
+      // const newComment = new Comment(comment)
+      // commentList.innerHTML += newComment.renderSingleComment()
+    })
+  })
+
+}
+
+function refresh(){
+  return document.location.reload(true)
+}
+
+displayComments()
 getAllMovies()
+
 })
