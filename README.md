@@ -1,6 +1,6 @@
 ## MovieBook
 
-This Javascript web app to find movie information about your favorite movie. .
+A Javascript web app to find movie information about your favorite movie.
 
 ## Contents
 - Installation
